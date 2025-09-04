@@ -1,5 +1,6 @@
-import { Share2, Menu } from "lucide-react"
+import { Share2, Menu, Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useTheme } from "@/components/ThemeProvider"
 import drGrannyAvatar from "@/assets/dr-granny-avatar.png"
 
 interface NavbarProps {
@@ -8,6 +9,8 @@ interface NavbarProps {
 }
 
 export function Navbar({ onMenuToggle, isMobile }: NavbarProps) {
+  const { theme, setTheme } = useTheme()
+
   return (
     <header className="h-16 bg-background border-b border-border flex items-center justify-between px-4 sticky top-0 z-50">
       <div className="flex items-center gap-3">
@@ -37,14 +40,25 @@ export function Navbar({ onMenuToggle, isMobile }: NavbarProps) {
         </div>
       </div>
 
-      <Button
-        variant="outline"
-        size="sm"
-        className="touch-target interactive-button flex items-center gap-2"
-      >
-        <Share2 className="h-4 w-4" />
-        <span className="hidden sm:inline">Share Chat</span>
-      </Button>
+      <div className="flex items-center gap-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="touch-target interactive-button"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </Button>
+        
+        <Button
+          variant="outline"
+          size="sm"
+          className="touch-target interactive-button flex items-center gap-2"
+        >
+          <Share2 className="h-4 w-4" />
+          <span className="hidden sm:inline">Share Chat</span>
+        </Button>
+      </div>
     </header>
   )
 }
