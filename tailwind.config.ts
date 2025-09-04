@@ -18,7 +18,17 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				inter: ['Inter', 'sans-serif'],
+			},
 			colors: {
+				'chat-dr-granny': 'hsl(var(--chat-dr-granny))',
+				'chat-dr-granny-foreground': 'hsl(var(--chat-dr-granny-foreground))',
+				'chat-user': 'hsl(var(--chat-user))',
+				'chat-user-foreground': 'hsl(var(--chat-user-foreground))',
+				'chat-user-border': 'hsl(var(--chat-user-border))',
+				'interactive-hover': 'hsl(var(--interactive-hover))',
+				'interactive-active': 'hsl(var(--interactive-active))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
