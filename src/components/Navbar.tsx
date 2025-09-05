@@ -12,7 +12,7 @@ export function Navbar({ onMenuToggle, isMobile }: NavbarProps) {
   const { theme, setTheme } = useTheme()
 
   return (
-    <header className="h-16 bg-background border-b border-border flex items-center justify-between px-4 sticky top-0 z-50">
+    <header className="h-16 bg-background border-b border-border flex items-center justify-between px-4 flex-shrink-0 z-50">
       <div className="flex items-center gap-3">
         {isMobile && (
           <Button

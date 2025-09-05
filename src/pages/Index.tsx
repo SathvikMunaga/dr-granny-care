@@ -9,7 +9,7 @@ const Index = () => {
   const isMobile = useIsMobile()
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="h-screen bg-background flex flex-col overflow-hidden">
       <Navbar 
         onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
         isMobile={isMobile}
@@ -22,7 +22,7 @@ const Index = () => {
           className={!isMobile ? "block" : ""}
         />
         
-        <main className="flex-1 flex flex-col min-w-0">
+        <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
           <ChatArea />
         </main>
       </div>
