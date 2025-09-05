@@ -1,6 +1,9 @@
 import { Share2, Menu, Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/components/ThemeProvider"
+import { AuthButton } from "@/components/AuthButton"
+import { ProfilePopup } from "@/components/ProfilePopup"
+import { useAuth } from "@/hooks/useAuth"
 import drGrannyAvatar from "@/assets/dr-granny-avatar.png"
 
 interface NavbarProps {
@@ -10,6 +13,7 @@ interface NavbarProps {
 
 export function Navbar({ onMenuToggle, isMobile }: NavbarProps) {
   const { theme, setTheme } = useTheme()
+  const { user } = useAuth()
 
   return (
     <header className="h-16 bg-background border-b border-border flex items-center justify-between px-4 flex-shrink-0 z-50">
@@ -50,23 +54,18 @@ export function Navbar({ onMenuToggle, isMobile }: NavbarProps) {
           {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
         
-        <Button
-          variant="outline"
-          size="sm"
-          className="touch-target interactive-button flex items-center gap-2"
-        >
-          <Share2 className="h-4 w-4" />
-          <span className="hidden sm:inline">Share Chat</span>
-        </Button>
+        {user && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="touch-target interactive-button flex items-center gap-2"
+          >
+            <Share2 className="h-4 w-4" />
+            <span className="hidden sm:inline">Share Chat</span>
+          </Button>
+        )}
         
-        <Button
-          variant="default"
-          size="sm"
-          className="touch-target interactive-button"
-        >
-          <span className="hidden sm:inline">Login / Signup</span>
-          <span className="sm:hidden">Login</span>
-        </Button>
+        {user ? <ProfilePopup /> : <AuthButton />}
       </div>
     </header>
   )

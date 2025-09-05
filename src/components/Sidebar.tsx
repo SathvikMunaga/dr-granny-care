@@ -3,6 +3,8 @@ import { Plus, Search, MessageSquare, FileText, User, X, Heart } from "lucide-re
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useChats } from "@/hooks/useChats"
+import { useAuth } from "@/hooks/useAuth"
 
 interface SidebarProps {
   isOpen: boolean
@@ -12,6 +14,19 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState("")
+  const { chats, createNewChat, selectChat } = useChats()
+  const { user } = useAuth()
+
+  const handleNewChat = async () => {
+    if (user) {
+      await createNewChat()
+      if (onClose) onClose()
+    }
+  }
+
+  const filteredChats = chats.filter(chat =>
+    chat.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   const previousChats = [
     { id: 1, title: "Blood pressure medication", time: "2 hours ago" },
@@ -59,6 +74,8 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
             <Button 
               className="w-full touch-target interactive-button justify-start text-left mb-2"
               variant="outline"
+              onClick={handleNewChat}
+              disabled={!user}
             >
               <Plus className="h-5 w-5 mr-3" />
               New Chat
@@ -91,24 +108,35 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
           <ScrollArea className="flex-1 p-4">
             <div className="space-y-2">
               <h3 className="text-sm font-medium text-muted-foreground mb-3">Previous Chats</h3>
-              {previousChats.map((chat) => (
-                <button
-                  key={chat.id}
-                  className="w-full p-3 text-left rounded-lg hover:bg-muted transition-colors interactive-button touch-target"
-                >
-                  <div className="flex items-start gap-3">
-                    <MessageSquare className="h-4 w-4 mt-1 text-muted-foreground flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm leading-tight line-clamp-2">
-                        {chat.title}
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {chat.time}
-                      </p>
+              
+              {filteredChats.length > 0 ? (
+                filteredChats.map((chat) => (
+                  <button
+                    key={chat.id}
+                    className="w-full p-3 text-left rounded-lg hover:bg-muted transition-colors interactive-button touch-target"
+                    onClick={() => {
+                      selectChat(chat)
+                      onClose()
+                    }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <MessageSquare className="h-4 w-4 mt-1 text-muted-foreground flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm leading-tight line-clamp-2">
+                          {chat.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {new Date(chat.updated_at).toLocaleDateString()}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                ))
+              ) : (
+                <p className="text-sm text-muted-foreground py-4 text-center">
+                  {user ? 'No chats yet. Start a new conversation!' : 'Sign in to view your chats'}
+                </p>
+              )}
             </div>
           </ScrollArea>
 
