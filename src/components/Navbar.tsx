@@ -58,6 +58,15 @@ export function Navbar({ onMenuToggle, isMobile }: NavbarProps) {
           <Share2 className="h-4 w-4" />
           <span className="hidden sm:inline">Share Chat</span>
         </Button>
+        
+        <Button
+          variant="default"
+          size="sm"
+          className="touch-target interactive-button"
+        >
+          <span className="hidden sm:inline">Login / Signup</span>
+          <span className="sm:hidden">Login</span>
+        </Button>
       </div>
     </header>
   )

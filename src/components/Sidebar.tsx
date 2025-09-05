@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Plus, Search, MessageSquare, FileText, User, X } from "lucide-react"
+import { Plus, Search, MessageSquare, FileText, User, X, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -57,11 +57,20 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
             
             {/* New Chat Button */}
             <Button 
-              className="w-full touch-target interactive-button justify-start text-left"
+              className="w-full touch-target interactive-button justify-start text-left mb-2"
               variant="outline"
             >
               <Plus className="h-5 w-5 mr-3" />
               New Chat
+            </Button>
+            
+            {/* Daily Health Tips Button */}
+            <Button 
+              className="w-full touch-target interactive-button justify-start text-left"
+              variant="ghost"
+            >
+              <Heart className="h-5 w-5 mr-3" />
+              Daily Health Tips
             </Button>
           </div>
 

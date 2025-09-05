@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ChatMessage } from "./ChatMessage"
 import { ChatInput } from "./ChatInput"
-import { LifestyleTips } from "./LifestyleTips"
 
 interface Message {
   id: number
@@ -68,31 +67,24 @@ export function ChatArea() {
       {/* Chat Messages */}
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         <div className="max-w-4xl mx-auto">
-          {/* Welcome Message and Tips */}
+          {/* Welcome Message */}
           {messages.length === 1 && (
             <div className="mb-8">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                <div className="lg:col-span-2">
-                  <div className="bg-muted/30 rounded-xl p-6">
-                    <h2 className="text-xl font-semibold mb-3">Welcome to Dr. Granny!</h2>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">
-                      I'm here to help answer your health questions and provide general wellness guidance. 
-                      Please remember that I cannot replace professional medical advice, and for any serious 
-                      concerns, you should always consult with your healthcare provider.
-                    </p>
-                    <div className="text-sm text-muted-foreground">
-                      <p><strong>What I can help with:</strong></p>
-                      <ul className="list-disc list-inside mt-2 space-y-1">
-                        <li>General health questions</li>
-                        <li>Wellness tips and lifestyle advice</li>
-                        <li>Medication reminders and information</li>
-                        <li>Symptom guidance and when to seek care</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="lg:col-span-1">
-                  <LifestyleTips />
+              <div className="bg-muted/30 rounded-xl p-6">
+                <h2 className="text-xl font-semibold mb-3">Welcome to Dr. Granny!</h2>
+                <p className="text-muted-foreground mb-4 leading-relaxed">
+                  I'm here to help answer your health questions and provide general wellness guidance. 
+                  Please remember that I cannot replace professional medical advice, and for any serious 
+                  concerns, you should always consult with your healthcare provider.
+                </p>
+                <div className="text-sm text-muted-foreground">
+                  <p><strong>What I can help with:</strong></p>
+                  <ul className="list-disc list-inside mt-2 space-y-1">
+                    <li>General health questions</li>
+                    <li>Wellness tips and lifestyle advice</li>
+                    <li>Medication reminders and information</li>
+                    <li>Symptom guidance and when to seek care</li>
+                  </ul>
                 </div>
               </div>
             </div>
