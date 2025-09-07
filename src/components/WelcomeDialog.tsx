@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useAuth } from "@/hooks/useAuth"
@@ -44,9 +44,9 @@ export function WelcomeDialog() {
           <DialogTitle className="text-2xl font-bold">
             Welcome to Dr. Granny
           </DialogTitle>
-          <p className="text-muted-foreground">
+          <DialogDescription className="text-muted-foreground">
             Your AI healthcare companion. Get personalized health advice and lifestyle tips.
-          </p>
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-4 mt-6">
