@@ -21,9 +21,8 @@ export function ChatArea() {
 
   const handleSendMessage = async (message: string, attachmentUrl?: string) => {
     if (!user) {
-      // Show the welcome dialog again if user tries to send without login
-      localStorage.removeItem('hasSeenWelcome')
-      window.location.reload()
+      // For non-authenticated users, just send the message without saving to database
+      await sendMessage(message, attachmentUrl)
       return
     }
     
@@ -37,7 +36,12 @@ export function ChatArea() {
   }
 
   const handleStartNewChat = async () => {
-    await createNewChat()
+    if (user) {
+      await createNewChat()
+    } else {
+      // For non-authenticated users, just clear the local messages
+      window.location.reload()
+    }
   }
 
   return (
@@ -45,25 +49,8 @@ export function ChatArea() {
       {/* Chat Messages */}
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         <div className="max-w-4xl mx-auto">
-          {!user ? (
-            // Not authenticated message
-            <div className="flex flex-col items-center justify-center h-full text-center space-y-6 mt-20">
-              <Avatar className="h-24 w-24">
-                <AvatarImage src={drGrannyAvatar} alt="Dr. Granny" />
-                <AvatarFallback className="bg-primary text-primary-foreground text-2xl">DG</AvatarFallback>
-              </Avatar>
-              
-              <div className="space-y-3">
-                <h2 className="text-3xl font-bold text-foreground">
-                  Welcome to Dr. Granny 👩‍⚕️
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Please sign in to start chatting with your AI health assistant.
-                </p>
-              </div>
-            </div>
-          ) : messages.length === 0 && !currentChat ? (
-            // No chat selected
+          {messages.length === 0 ? (
+            // No messages yet
             <div className="flex flex-col items-center justify-center h-full text-center space-y-6 mt-20">
               <Avatar className="h-24 w-24">
                 <AvatarImage src={drGrannyAvatar} alt="Dr. Granny" />

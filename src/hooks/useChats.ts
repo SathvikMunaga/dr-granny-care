@@ -98,7 +98,36 @@ export function useChats() {
   }
 
   const sendMessage = async (content: string, attachmentUrl?: string) => {
-    if (!user || !currentChat) return
+    if (!user) {
+      // Guest user - create local messages without saving to database
+      const userMessage: Message = {
+        id: 'guest-' + Date.now(),
+        chat_id: 'guest-chat',
+        content,
+        is_user: true,
+        created_at: new Date().toISOString(),
+        attachment_url: attachmentUrl || null
+      }
+      
+      setMessages(prev => [...prev, userMessage])
+      
+      // Simulate AI response for guest users
+      setTimeout(() => {
+        const aiResponse = generateAIResponse(content)
+        const aiMessage: Message = {
+          id: 'guest-ai-' + Date.now(),
+          chat_id: 'guest-chat',
+          content: aiResponse,
+          is_user: false,
+          created_at: new Date().toISOString()
+        }
+        setMessages(prev => [...prev, aiMessage])
+      }, 1000)
+      
+      return userMessage
+    }
+
+    if (!currentChat) return
 
     try {
       const { data, error } = await supabase
