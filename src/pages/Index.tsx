@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Navbar } from "@/components/Navbar"
 import { Sidebar } from "@/components/Sidebar"
 import { ChatArea } from "@/components/ChatArea"
+import { WelcomeDialog } from "@/components/WelcomeDialog"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 const Index = () => {
@@ -10,6 +11,7 @@ const Index = () => {
 
   return (
     <div className="h-screen bg-background flex flex-col overflow-hidden">
+      <WelcomeDialog />
       <Navbar 
         onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
         isMobile={isMobile}
