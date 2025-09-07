@@ -20,7 +20,12 @@ export function ChatArea() {
   }, [messages])
 
   const handleSendMessage = async (message: string, attachmentUrl?: string) => {
-    if (!user) return
+    if (!user) {
+      // Show the welcome dialog again if user tries to send without login
+      localStorage.removeItem('hasSeenWelcome')
+      window.location.reload()
+      return
+    }
     
     let chat = currentChat
     if (!chat) {
@@ -107,7 +112,7 @@ export function ChatArea() {
       {/* Chat Input */}
       <ChatInput 
         onSendMessage={handleSendMessage} 
-        disabled={!user || loading}
+        disabled={loading}
       />
     </div>
   )

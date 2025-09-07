@@ -67,7 +67,7 @@ export function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask Dr. Granny anything about your health..."
+              placeholder="Ask Dr. Granny anything about your health... (Login to save chats)"
               className="min-h-[48px] max-h-32 resize-none text-base border-border focus:border-ring"
               disabled={disabled}
             />
