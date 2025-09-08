@@ -77,79 +77,81 @@ export function DailyHealthTips({ onClose }: DailyHealthTipsProps) {
   })
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <Heart className="h-8 w-8 text-red-500" />
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Daily Health Tips</h1>
-            <p className="text-muted-foreground">{todayDate}</p>
+    <div className="h-full overflow-y-auto">
+      <div className="max-w-4xl mx-auto p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <Heart className="h-8 w-8 text-red-500" />
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">Daily Health Tips</h1>
+              <p className="text-muted-foreground">{todayDate}</p>
+            </div>
           </div>
+          {onClose && (
+            <Button variant="outline" onClick={onClose}>
+              Back to Chat
+            </Button>
+          )}
         </div>
-        {onClose && (
-          <Button variant="outline" onClick={onClose}>
-            Back to Chat
-          </Button>
-        )}
-      </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {healthTips.map((tip) => {
-          const IconComponent = tip.icon
-          const isCompleted = completedTips.includes(tip.id)
-          
-          return (
-            <Card 
-              key={tip.id} 
-              className={`transition-all hover:shadow-lg cursor-pointer ${
-                isCompleted ? 'bg-muted/50 border-primary' : ''
-              }`}
-              onClick={() => markAsCompleted(tip.id)}
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <IconComponent className={`h-6 w-6 ${isCompleted ? 'text-primary' : 'text-muted-foreground'}`} />
-                  <Badge className={categoryColors[tip.category as keyof typeof categoryColors]}>
-                    {tip.category}
-                  </Badge>
-                </div>
-                <CardTitle className="text-lg">{tip.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <CardDescription className="text-sm leading-relaxed">
-                  {tip.tip}
-                </CardDescription>
-                <div className="pt-2 border-t border-border">
-                  <p className="text-xs text-muted-foreground font-medium">
-                    💡 {tip.benefit}
-                  </p>
-                </div>
-                {isCompleted && (
-                  <div className="flex items-center gap-2 text-primary text-sm font-medium">
-                    <span className="text-green-500">✓</span>
-                    Completed today!
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {healthTips.map((tip) => {
+            const IconComponent = tip.icon
+            const isCompleted = completedTips.includes(tip.id)
+            
+            return (
+              <Card 
+                key={tip.id} 
+                className={`transition-all hover:shadow-lg cursor-pointer ${
+                  isCompleted ? 'bg-muted/50 border-primary' : ''
+                }`}
+                onClick={() => markAsCompleted(tip.id)}
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <IconComponent className={`h-6 w-6 ${isCompleted ? 'text-primary' : 'text-muted-foreground'}`} />
+                    <Badge className={categoryColors[tip.category as keyof typeof categoryColors]}>
+                      {tip.category}
+                    </Badge>
                   </div>
-                )}
-              </CardContent>
-            </Card>
-          )
-        })}
-      </div>
+                  <CardTitle className="text-lg">{tip.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <CardDescription className="text-sm leading-relaxed">
+                    {tip.tip}
+                  </CardDescription>
+                  <div className="pt-2 border-t border-border">
+                    <p className="text-xs text-muted-foreground font-medium">
+                      💡 {tip.benefit}
+                    </p>
+                  </div>
+                  {isCompleted && (
+                    <div className="flex items-center gap-2 text-primary text-sm font-medium">
+                      <span className="text-green-500">✓</span>
+                      Completed today!
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
 
-      <Card className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Lightbulb className="h-5 w-5 text-yellow-500" />
-            Today's Health Reminder
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Small, consistent changes lead to big health improvements. You don't have to do everything at once - 
-            just pick one tip to focus on today and build from there. Your future self will thank you! 🌟
-          </p>
-        </CardContent>
-      </Card>
+        <Card className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Lightbulb className="h-5 w-5 text-yellow-500" />
+              Today's Health Reminder
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Small, consistent changes lead to big health improvements. You don't have to do everything at once - 
+              just pick one tip to focus on today and build from there. Your future self will thank you! 🌟
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

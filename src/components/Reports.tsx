@@ -114,11 +114,48 @@ export function Reports({ onClose }: ReportsProps) {
 
   if (!user) {
     return (
+      <div className="h-full overflow-y-auto">
+        <div className="max-w-4xl mx-auto p-6">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <FileText className="h-8 w-8 text-primary" />
+              <h1 className="text-3xl font-bold text-foreground">Medical Reports</h1>
+            </div>
+            {onClose && (
+              <Button variant="outline" onClick={onClose}>
+                Back to Chat
+              </Button>
+            )}
+          </div>
+
+          <Card className="text-center py-12">
+            <CardHeader>
+              <CardTitle className="text-xl">Sign In Required</CardTitle>
+              <CardDescription>
+                Please sign in to view and manage your medical reports
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Your medical reports are securely stored and only accessible when you're logged in.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="h-full overflow-y-auto">
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <FileText className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl font-bold text-foreground">Medical Reports</h1>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">Medical Reports</h1>
+              <p className="text-muted-foreground">Upload and manage your medical documents</p>
+            </div>
           </div>
           {onClose && (
             <Button variant="outline" onClick={onClose}>
@@ -127,127 +164,94 @@ export function Reports({ onClose }: ReportsProps) {
           )}
         </div>
 
-        <Card className="text-center py-12">
+        {/* Upload Section */}
+        <Card className="mb-6">
           <CardHeader>
-            <CardTitle className="text-xl">Sign In Required</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Upload className="h-5 w-5" />
+              Upload New Report
+            </CardTitle>
             <CardDescription>
-              Please sign in to view and manage your medical reports
+              Upload your medical reports, lab results, or imaging files for easy access during consultations
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground mb-4">
-              Your medical reports are securely stored and only accessible when you're logged in.
-            </p>
+            <FileUpload 
+              onFileUploaded={handleFileUploaded}
+            />
           </CardContent>
         </Card>
-      </div>
-    )
-  }
 
-  return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <FileText className="h-8 w-8 text-primary" />
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Medical Reports</h1>
-            <p className="text-muted-foreground">Upload and manage your medical documents</p>
-          </div>
-        </div>
-        {onClose && (
-          <Button variant="outline" onClick={onClose}>
-            Back to Chat
-          </Button>
-        )}
-      </div>
-
-      {/* Upload Section */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Upload className="h-5 w-5" />
-            Upload New Report
-          </CardTitle>
-          <CardDescription>
-            Upload your medical reports, lab results, or imaging files for easy access during consultations
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <FileUpload 
-            onFileUploaded={handleFileUploaded}
-          />
-        </CardContent>
-      </Card>
-
-      {/* Reports List */}
-      {reports.length === 0 ? (
-        <Card className="text-center py-12">
-          <CardHeader>
-            <CardTitle className="text-xl">No Reports Found</CardTitle>
-            <CardDescription>
-              You haven't uploaded any medical reports yet
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground mb-4">
-              Upload your medical documents to keep them organized and easily accessible.
-            </p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">Your Reports ({reports.length})</h2>
-          
-          <div className="grid gap-4">
-            {reports.map((report) => (
-              <Card key={report.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="p-2 bg-muted rounded-lg">
-                        <FileText className="h-6 w-6 text-primary" />
-                      </div>
-                      
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{report.name}</h3>
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            {new Date(report.uploadDate).toLocaleDateString()}
-                          </span>
-                          <span>{report.size}</span>
-                          <Badge className={getTypeColor(report.type)}>
-                            {getTypeLabel(report.type)}
-                          </Badge>
+        {/* Reports List */}
+        {reports.length === 0 ? (
+          <Card className="text-center py-12">
+            <CardHeader>
+              <CardTitle className="text-xl">No Reports Found</CardTitle>
+              <CardDescription>
+                You haven't uploaded any medical reports yet
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Upload your medical documents to keep them organized and easily accessible.
+              </p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Your Reports ({reports.length})</h2>
+            
+            <div className="grid gap-4">
+              {reports.map((report) => (
+                <Card key={report.id} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="p-2 bg-muted rounded-lg">
+                          <FileText className="h-6 w-6 text-primary" />
+                        </div>
+                        
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg">{report.name}</h3>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-4 w-4" />
+                              {new Date(report.uploadDate).toLocaleDateString()}
+                            </span>
+                            <span>{report.size}</span>
+                            <Badge className={getTypeColor(report.type)}>
+                              {getTypeLabel(report.type)}
+                            </Badge>
+                          </div>
                         </div>
                       </div>
+                      
+                      <div className="flex items-center gap-2">
+                        <Button variant="outline" size="sm">
+                          <Eye className="h-4 w-4 mr-2" />
+                          View
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => deleteReport(report.id)}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
-                    
-                    <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4 mr-2" />
-                        View
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Download className="h-4 w-4 mr-2" />
-                        Download
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => deleteReport(report.id)}
-                        className="text-destructive hover:text-destructive"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
