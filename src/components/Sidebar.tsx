@@ -10,9 +10,12 @@ interface SidebarProps {
   isOpen: boolean
   onClose: () => void
   className?: string
+  onShowHealthTips: () => void
+  onShowReports: () => void
+  onShowProfile: () => void
 }
 
-export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
+export function Sidebar({ isOpen, onClose, className, onShowHealthTips, onShowReports, onShowProfile }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const { chats, createNewChat, selectChat } = useChats()
   const { user } = useAuth()
@@ -20,8 +23,11 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
   const handleNewChat = async () => {
     if (user) {
       await createNewChat()
-      if (onClose) onClose()
+    } else {
+      // For guest users, reload to start fresh
+      window.location.reload()
     }
+    if (onClose) onClose()
   }
 
   const filteredChats = chats.filter(chat =>
@@ -75,7 +81,6 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
               className="w-full touch-target interactive-button justify-start text-left mb-2"
               variant="outline"
               onClick={handleNewChat}
-              disabled={!user}
             >
               <Plus className="h-5 w-5 mr-3" />
               New Chat
@@ -85,6 +90,10 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
             <Button 
               className="w-full touch-target interactive-button justify-start text-left"
               variant="ghost"
+              onClick={() => {
+                onShowHealthTips()
+                onClose()
+              }}
             >
               <Heart className="h-5 w-5 mr-3" />
               Daily Health Tips
@@ -146,6 +155,10 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
               <Button 
                 variant="ghost" 
                 className="w-full justify-start touch-target interactive-button"
+                onClick={() => {
+                  onShowReports()
+                  onClose()
+                }}
               >
                 <FileText className="h-5 w-5 mr-3" />
                 Reports
@@ -153,6 +166,10 @@ export function Sidebar({ isOpen, onClose, className }: SidebarProps) {
               <Button 
                 variant="ghost" 
                 className="w-full justify-start touch-target interactive-button"
+                onClick={() => {
+                  onShowProfile()
+                  onClose()
+                }}
               >
                 <User className="h-5 w-5 mr-3" />
                 Profile
