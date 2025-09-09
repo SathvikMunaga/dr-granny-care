@@ -8,61 +8,61 @@
 
 @layer base {
   :root {
-    /* Core Black & White Theme */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    /* Core Theme with #141414 and #DCDCDC */
+    --background: 0 0% 86%;
+    --foreground: 0 0% 8%;
 
     /* Card & Surface Colors */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card: 0 0% 86%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 0 0% 86%;
+    --popover-foreground: 0 0% 8%;
 
-    /* Primary Brand Colors - Pure Black */
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary Brand Colors - Dark Gray */
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 86%;
 
-    /* Secondary - Light Gray for subtle backgrounds */
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
+    /* Secondary - Light Gray variations */
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 8%;
 
     /* Muted - For less important text and backgrounds */
-    --muted: 0 0% 96%;
+    --muted: 0 0% 90%;
     --muted-foreground: 0 0% 45%;
 
-    /* Accent - Subtle gray for interactive elements */
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 0%;
+    /* Accent - Interactive elements */
+    --accent: 0 0% 82%;
+    --accent-foreground: 0 0% 8%;
 
     /* Destructive - Keep standard red for errors */
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 0 0% 86%;
 
-    /* Borders and Inputs - Light gray */
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 0%;
+    /* Borders and Inputs */
+    --border: 0 0% 75%;
+    --input: 0 0% 82%;
+    --ring: 0 0% 8%;
 
     /* Border radius for friendly, approachable design */
     --radius: 0.75rem;
 
     /* Chat Specific Colors */
-    --chat-dr-granny: 0 0% 0%;
-    --chat-dr-granny-foreground: 0 0% 100%;
-    --chat-user: 0 0% 100%;
-    --chat-user-foreground: 0 0% 0%;
-    --chat-user-border: 0 0% 0%;
+    --chat-dr-granny: 0 0% 8%;
+    --chat-dr-granny-foreground: 0 0% 86%;
+    --chat-user: 0 0% 86%;
+    --chat-user-foreground: 0 0% 8%;
+    --chat-user-border: 0 0% 8%;
 
     /* Interactive Elements */
-    --interactive-hover: 0 0% 94%;
-    --interactive-active: 0 0% 92%;
+    --interactive-hover: 0 0% 80%;
+    --interactive-active: 0 0% 78%;
 
     /* Accessibility - Large touch targets */
     --touch-target: 48px;
     --button-height: 48px;
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 0 0% 82%;
 
     --sidebar-foreground: 240 5.3% 26.1%;
 
