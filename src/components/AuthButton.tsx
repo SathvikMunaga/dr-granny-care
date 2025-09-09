@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/hooks/useAuth"
+import { useNavigate } from "react-router-dom"
 import { LogIn, LogOut } from "lucide-react"
 
 export function AuthButton() {
-  const { user, loading, signInWithGoogle, signOut } = useAuth()
+  const { user, loading, signOut } = useAuth()
+  const navigate = useNavigate()
 
   if (loading) {
     return (
@@ -31,7 +33,7 @@ export function AuthButton() {
     <Button 
       variant="outline" 
       size="sm" 
-      onClick={signInWithGoogle}
+      onClick={() => navigate('/auth')}
       className="gap-2"
     >
       <LogIn className="h-4 w-4" />
