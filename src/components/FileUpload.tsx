@@ -5,6 +5,7 @@ import { Camera, FileText, Image, Paperclip } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/hooks/useAuth"
 import { useToast } from "@/hooks/use-toast"
+import { CameraCapture } from "./CameraCapture"
 
 interface FileUploadProps {
   onFileUploaded: (url: string, fileName: string) => void
@@ -14,6 +15,7 @@ interface FileUploadProps {
 export function FileUpload({ onFileUploaded, disabled }: FileUploadProps) {
   const [uploading, setUploading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [cameraOpen, setCameraOpen] = useState(false)
   const { user } = useAuth()
   const { toast } = useToast()
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -85,9 +87,12 @@ export function FileUpload({ onFileUploaded, disabled }: FileUploadProps) {
   }
 
   const handleCameraClick = () => {
-    if (cameraInputRef.current) {
-      cameraInputRef.current.click()
-    }
+    setOpen(false)
+    setCameraOpen(true)
+  }
+
+  const handlePhotoCapture = (file: File) => {
+    uploadFile(file)
   }
 
   return (
@@ -151,6 +156,12 @@ export function FileUpload({ onFileUploaded, disabled }: FileUploadProps) {
         capture="environment"
         onChange={handleFileSelect}
         className="hidden"
+      />
+
+      <CameraCapture
+        open={cameraOpen}
+        onOpenChange={setCameraOpen}
+        onPhotoCapture={handlePhotoCapture}
       />
     </>
   )
